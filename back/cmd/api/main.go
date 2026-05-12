@@ -8,15 +8,17 @@ import (
 	"os/signal"
 
 	"github.com/heartwilltell/scotty"
-	"github.com/marsolab/saaskit/back/internal/config"
 	"github.com/marsolab/servekit/logkit"
+
+	"github.com/marsolab/saaskit/back/internal/api"
+	"github.com/marsolab/saaskit/back/internal/config"
 )
 
 func main() {
 	cmd := scotty.Command{
 		Name: "api",
-		Run: func(cmd *scotty.Command, args []string) error {
-			ctx, cancel := signal.NotifyContext(context.Background())
+		Run: func(cmd *scotty.Command, _ []string) error {
+			ctx, cancel := signal.NotifyContext(context.Background(), os.Interrupt)
 			defer cancel()
 
 			cfg, ok := scotty.GetConfig[config.Config](cmd)
@@ -24,16 +26,21 @@ func main() {
 				return fmt.Errorf("no config in command %s", cmd.Name)
 			}
 
-			logger, loggerErr := initLogger(*cfg)
-			if loggerErr != nil {
-				return fmt.Errorf("init logger: %w", loggerErr)
+			logger, err := initLogger(*cfg)
+			if err != nil {
+				return fmt.Errorf("init logger: %w", err)
 			}
 
 			logger.DebugContext(ctx, "Logger has been initialized",
 				slog.String("level", cfg.LogLevel),
 			)
 
-			return nil
+			server, err := api.New(cfg, logger)
+			if err != nil {
+				return fmt.Errorf("build api server: %w", err)
+			}
+
+			return server.Serve(ctx)
 		},
 	}
 
@@ -50,21 +57,20 @@ func main() {
 
 // initLogger initializes the logger.
 func initLogger(cfg config.Config) (*slog.Logger, error) {
-	level, levelErr := logkit.ParseLevel(cfg.LogLevel)
-	if levelErr != nil {
-		return nil, fmt.Errorf("parse log level: %w", levelErr)
+	level, err := logkit.ParseLevel(cfg.LogLevel)
+	if err != nil {
+		return nil, fmt.Errorf("parse log level: %w", err)
 	}
 
-	loggerOptions := []logkit.Option{
-		logkit.WithLevel(level),
-		logkit.WithColor(),
+	options := []logkit.Option{logkit.WithLevel(level)}
+
+	if cfg.LogColor {
+		options = append(options, logkit.WithColor())
 	}
 
 	if cfg.LogJSON {
-		loggerOptions = append(loggerOptions, logkit.WithJSON())
+		options = append(options, logkit.WithJSON())
 	}
 
-	logger := logkit.New(loggerOptions...)
-
-	return logger, nil
+	return logkit.New(options...), nil
 }
