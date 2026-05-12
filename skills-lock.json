@@ -19,6 +19,12 @@
       "skillPath": "skills/brainstorming/SKILL.md",
       "computedHash": "8df9b47092524833138b58682d03f2e153a242e550d1693657afdbee0cc9cdb0"
     },
+    "copy": {
+      "source": "marsolab/skills",
+      "sourceType": "github",
+      "skillPath": "plugins/copy/skills/copy/SKILL.md",
+      "computedHash": "7179a425a4ffd97ba6ca58bf14b61fa957f41a3859cda47ed6752f0757c8c5a3"
+    },
     "dispatching-parallel-agents": {
       "source": "obra/superpowers",
       "sourceType": "github",
@@ -37,6 +43,78 @@
       "skillPath": "skills/finishing-a-development-branch/SKILL.md",
       "computedHash": "932d23af11a3eb2b758f5b1d9aec7b6d28ddd26658328414f87f34dff7179d19"
     },
+    "front-dev": {
+      "source": "marsolab/skills",
+      "sourceType": "github",
+      "skillPath": "plugins/front-dev/skills/front-dev/SKILL.md",
+      "computedHash": "b639efe2084110d387d7a60302d164970f12bb922484e4874a8cf1685acbcac9"
+    },
+    "go-cli": {
+      "source": "marsolab/skills",
+      "sourceType": "github",
+      "skillPath": "plugins/go-cli/skills/go-cli/SKILL.md",
+      "computedHash": "9a8c226182bc0528377b8eea22c74523eee27d58823241ff662c8c9d924ae466"
+    },
+    "go-concurrency": {
+      "source": "marsolab/skills",
+      "sourceType": "github",
+      "skillPath": "plugins/go-concurrency/skills/go-concurrency/SKILL.md",
+      "computedHash": "38ccea3191151b86864abdb638600cd75f1758d0871ec42b5c116583d63b1828"
+    },
+    "go-dev": {
+      "source": "marsolab/skills",
+      "sourceType": "github",
+      "skillPath": "plugins/go-dev/skills/go-dev/SKILL.md",
+      "computedHash": "e69e55a5fbf849109af68bd5c8aa23caca3f2f04f6569ab48cbe3fd0df70d2f3"
+    },
+    "go-errors": {
+      "source": "marsolab/skills",
+      "sourceType": "github",
+      "skillPath": "plugins/go-errors/skills/go-errors/SKILL.md",
+      "computedHash": "f8ecc2a7f0da58df4bdeb85bbfb064f0a436be48fd40bc5ae014853e7e03c410"
+    },
+    "go-http": {
+      "source": "marsolab/skills",
+      "sourceType": "github",
+      "skillPath": "plugins/go-http/skills/go-http/SKILL.md",
+      "computedHash": "f44121f0e639b5fe3facbce8ccd53833de75ab0401806441a83995b437ad98c8"
+    },
+    "go-lint": {
+      "source": "marsolab/skills",
+      "sourceType": "github",
+      "skillPath": "plugins/go-lint/skills/go-lint/SKILL.md",
+      "computedHash": "c0510b9af69565b4485ffd9f45be192e3242ca400c48fb41d7693db0f6840eb5"
+    },
+    "go-logging": {
+      "source": "marsolab/skills",
+      "sourceType": "github",
+      "skillPath": "plugins/go-logging/skills/go-logging/SKILL.md",
+      "computedHash": "65b3ebf40e4a1fe9e8426ccd539786cfa09c1fb04841822f2036ca841c56ba1e"
+    },
+    "go-sql": {
+      "source": "marsolab/skills",
+      "sourceType": "github",
+      "skillPath": "plugins/go-sql/skills/go-sql/SKILL.md",
+      "computedHash": "b44b0085e73f286dd2f59b9ac1659ec7811f1d9432aaa944e3d7bf8fa1c09924"
+    },
+    "go-style": {
+      "source": "marsolab/skills",
+      "sourceType": "github",
+      "skillPath": "plugins/go-style/skills/go-style/SKILL.md",
+      "computedHash": "9c7a216c6029d0e9e7d1a2f0e5c145f09faa6d3866df820167bd0c0963a98a86"
+    },
+    "go-testing": {
+      "source": "marsolab/skills",
+      "sourceType": "github",
+      "skillPath": "plugins/go-testing/skills/go-testing/SKILL.md",
+      "computedHash": "c664b99ea382bda1b9a4d6b57ff591be005dbb724c52b06f0e453fb583ebdf55"
+    },
+    "kinde": {
+      "source": "marsolab/skills",
+      "sourceType": "github",
+      "skillPath": "plugins/kinde/skills/kinde/SKILL.md",
+      "computedHash": "ad948da2b4bc11790fbabdc276af76bc01423333c080b39e5a0edb8c62c83bd0"
+    },
     "receiving-code-review": {
       "source": "obra/superpowers",
       "sourceType": "github",
@@ -49,11 +127,23 @@
       "skillPath": "skills/requesting-code-review/SKILL.md",
       "computedHash": "874f3786b05007a8b4a60452a4cd89b9917c645d34b6b1e40ea05037d12f0e67"
     },
+    "sqlite": {
+      "source": "marsolab/skills",
+      "sourceType": "github",
+      "skillPath": "plugins/sqlite/skills/sqlite/SKILL.md",
+      "computedHash": "c246dcb094e7e330d5ddcb5644184c0f4ecdabee1731afc040b21f675570c950"
+    },
     "subagent-driven-development": {
       "source": "obra/superpowers",
       "sourceType": "github",
       "skillPath": "skills/subagent-driven-development/SKILL.md",
       "computedHash": "b38be2f3a092d758127f6d47e77c2493885aebf38aae359e4c786df2c343b837"
+    },
+    "sys-arch": {
+      "source": "marsolab/skills",
+      "sourceType": "github",
+      "skillPath": "plugins/sys-arch/skills/sys-arch/SKILL.md",
+      "computedHash": "b42965dbb84a418eeb51b22f89629a19c612c11c550ac9faa1bf815fa0257287"
     },
     "systematic-debugging": {
       "source": "obra/superpowers",
