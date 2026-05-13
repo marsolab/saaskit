@@ -1,0 +1,168 @@
+# -- Override the chart name. Defaults to .Chart.Name.
+nameOverride: ""
+# -- Override the fully qualified app name. Defaults to "<release>-<chart>".
+fullnameOverride: ""
+
+image:
+  repository: nginx
+  tag: ""                  # Defaults to .Chart.AppVersion when empty
+  pullPolicy: IfNotPresent
+  pullSecrets: []          # [{ name: regcred }]
+
+replicaCount: 1
+
+# -- Pod-level settings
+pod:
+  annotations: {}
+  labels: {}
+  securityContext: {}      # { fsGroup: 1000 }
+  nodeSelector: {}
+  tolerations: []
+  affinity: {}
+  topologySpreadConstraints: []
+
+# -- Container-level settings
+container:
+  port: 8080
+  securityContext: {}      # { runAsNonRoot: true, readOnlyRootFilesystem: true }
+  livenessProbe: {}        # { httpGet: { path: /healthz, port: http } }
+  readinessProbe: {}
+  startupProbe: {}
+  command: []
+  args: []
+  # Extra env vars merged with envFrom from ConfigMap + OnePassword secrets
+  env: []
+  # Extra envFrom sources (configMapRef / secretRef). ConfigMap + OnePassword
+  # secrets defined below are wired automatically.
+  envFrom: []
+  volumeMounts: []
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 128Mi
+  limits:
+    cpu: 500m
+    memory: 512Mi
+
+serviceAccount:
+  create: true
+  name: ""
+  annotations: {}
+  automountServiceAccountToken: true
+
+service:
+  enabled: true
+  type: ClusterIP
+  port: 80
+  targetPort: 8080         # Or "http" to reference the named container port
+  annotations: {}
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 5
+  targetCPUUtilizationPercentage: 80
+  targetMemoryUtilizationPercentage: ~
+
+volumes: []
+
+# -- Plain ConfigMap rendered as a single resource. Values become env keys
+# when wired via envFrom (default) and are also available under
+# configMap.files for arbitrary file content.
+configMap:
+  enabled: true
+  annotations: {}
+  # Key/value pairs surfaced as environment variables (via envFrom).
+  data: {}
+    # APP_ENV: production
+    # LOG_LEVEL: info
+  # Larger blobs (config files) mounted as projected volumes by callers.
+  files: {}
+    # app.yaml: |
+    #   server:
+    #     port: 8080
+
+# -- 1Password Connect operator integration. Each entry produces one
+# OnePasswordItem (onepassword.com/v1). The operator materializes a Secret
+# named after metadata.name, which is mounted via envFrom by default.
+# Requires the 1Password Kubernetes operator + Connect in-cluster.
+onePassword:
+  enabled: false
+  # Optional shared vault used for entries that omit `vault`.
+  defaultVault: ""
+  # Optional cadence for re-sync. Empty = operator default.
+  autoRestart: false
+  items: []
+    # - name: app-secrets         # Secret + OnePasswordItem name suffix
+    #   vault: production         # Overrides defaultVault
+    #   item: app                 # Item name in 1Password
+    #   annotations: {}
+    #   # When true (default), the generated Secret is added to envFrom.
+    #   mountAsEnvFrom: true
+
+# -- Gateway API (gateway.networking.k8s.io/v1).
+gateway:
+  # Render a Gateway resource. Disable when an existing Gateway is reused
+  # by HTTPRoutes (set httpRoute.parentRefs explicitly in that case).
+  enabled: false
+  name: ""                       # Defaults to fullname
+  gatewayClassName: tailscale    # e.g. "tailscale", "istio", "envoy"
+  annotations: {}
+  labels: {}
+  listeners:
+    - name: http
+      port: 80
+      protocol: HTTP
+      allowedRoutes:
+        namespaces:
+          from: Same
+  addresses: []
+  # infrastructure: { parametersRef: {...} }
+
+httpRoute:
+  enabled: false
+  name: ""                       # Defaults to fullname
+  annotations: {}
+  labels: {}
+  # Defaults to the in-chart Gateway when omitted and gateway.enabled=true.
+  parentRefs: []
+    # - name: my-existing-gateway
+    #   namespace: networking
+    #   sectionName: http
+  hostnames: []
+    # - app.tailnet.example.ts.net
+  rules:
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /
+      # backendRefs defaults to the in-chart Service when service.enabled.
+      backendRefs: []
+      filters: []
+
+# -- Tailscale ingress. The Tailscale Kubernetes operator supports two
+# modes: a classic networking.k8s.io/v1 Ingress with
+# ingressClassName=tailscale, or Gateway API via gatewayClassName=tailscale.
+# Pick one. For Gateway API, set gateway.gatewayClassName=tailscale above
+# and leave tailscaleIngress.enabled=false.
+tailscaleIngress:
+  enabled: false
+  className: tailscale
+  # Hostname becomes the MagicDNS / cert name. Required when enabled.
+  host: ""
+  # When true, the operator provisions a TLS cert and serves HTTPS.
+  tls: true
+  annotations: {}
+    # tailscale.com/funnel: "true"          # Expose on the public internet
+    # tailscale.com/tags: "tag:k8s"
+  # Service path. Defaults to "/" → in-chart Service.
+  path: /
+  pathType: Prefix
+
+podDisruptionBudget:
+  enabled: false
+  minAvailable: ~          # e.g. 1 or "50%"
+  maxUnavailable: ~
+
+extraManifests: []         # Raw manifests appended verbatim (templated).

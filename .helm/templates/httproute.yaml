@@ -1,0 +1,48 @@
+{{- if .Values.httpRoute.enabled -}}
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: {{ include "app.httpRouteName" . }}
+  labels:
+    {{- include "app.labels" . | nindent 4 }}
+    {{- with .Values.httpRoute.labels }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+  {{- with .Values.httpRoute.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  parentRefs:
+    {{- if .Values.httpRoute.parentRefs }}
+    {{- toYaml .Values.httpRoute.parentRefs | nindent 4 }}
+    {{- else if .Values.gateway.enabled }}
+    - name: {{ include "app.gatewayName" . }}
+    {{- else }}
+    {{- fail "httpRoute.enabled requires either gateway.enabled or httpRoute.parentRefs" }}
+    {{- end }}
+  {{- with .Values.httpRoute.hostnames }}
+  hostnames:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+  rules:
+    {{- range .Values.httpRoute.rules }}
+    - {{- with .matches }}
+      matches:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .filters }}
+      filters:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      backendRefs:
+        {{- if .backendRefs }}
+        {{- toYaml .backendRefs | nindent 8 }}
+        {{- else if $.Values.service.enabled }}
+        - name: {{ include "app.fullname" $ }}
+          port: {{ $.Values.service.port }}
+        {{- else }}
+        {{- fail "httpRoute rule requires backendRefs when service.enabled is false" }}
+        {{- end }}
+    {{- end }}
+{{- end }}

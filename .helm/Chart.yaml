@@ -1,0 +1,15 @@
+apiVersion: v2
+name: app
+description: Generic Helm chart with 1Password operator secrets, ConfigMap, Gateway API routing, and Tailscale ingress
+type: application
+version: 0.1.0
+appVersion: "0.1.0"
+
+keywords:
+  - generic
+  - gateway-api
+  - tailscale
+  - onepassword
+
+maintainers:
+  - name: marsolab

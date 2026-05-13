@@ -1,0 +1,29 @@
+{{ include "app.fullname" . }} is installed.
+
+Resources rendered:
+  Deployment:     {{ include "app.fullname" . }}
+  ServiceAccount: {{ include "app.serviceAccountName" . }}
+{{- if .Values.service.enabled }}
+  Service:        {{ include "app.fullname" . }} ({{ .Values.service.type }}:{{ .Values.service.port }})
+{{- end }}
+{{- if and .Values.configMap.enabled (or .Values.configMap.data .Values.configMap.files) }}
+  ConfigMap:      {{ include "app.configMapName" . }}
+{{- end }}
+{{- if .Values.onePassword.enabled }}
+  OnePasswordItems:
+  {{- range .Values.onePassword.items }}
+    - {{ include "app.onePasswordItemName" (dict "root" $ "item" .) }}
+  {{- end }}
+{{- end }}
+{{- if .Values.gateway.enabled }}
+  Gateway:        {{ include "app.gatewayName" . }} (class={{ .Values.gateway.gatewayClassName }})
+{{- end }}
+{{- if .Values.httpRoute.enabled }}
+  HTTPRoute:      {{ include "app.httpRouteName" . }}
+{{- end }}
+{{- if .Values.tailscaleIngress.enabled }}
+  Tailscale URL:  https://{{ .Values.tailscaleIngress.host }}
+{{- end }}
+
+To inspect:
+  kubectl --namespace {{ .Release.Namespace }} get all -l app.kubernetes.io/instance={{ .Release.Name }}
