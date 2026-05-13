@@ -5,16 +5,22 @@ import (
 	"log/slog"
 
 	"github.com/heartwilltell/hc"
-	"github.com/marsolab/saaskit/back/internal/config"
 	"github.com/marsolab/servekit"
+	"github.com/marsolab/servekit/grpckit"
 	"github.com/marsolab/servekit/httpkit"
+
+	"github.com/marsolab/saaskit/back/internal/api/service/authkinde"
+	"github.com/marsolab/saaskit/back/internal/config"
 )
 
-// New creates a new API server.
+// New creates a new API server. The authkinde transport is only mounted when
+// Kinde credentials are configured; otherwise the server still boots so local
+// development can run against a Kinde-less stack.
 func New(cfg *config.Config, logger *slog.Logger) (servekit.Listener, error) {
 	checker := hc.NewMultiServiceChecker(hc.NewServiceReport())
+	server := servekit.NewServer(logger)
 
-	listenerHTTP, listenerHTTPErr := httpkit.NewListenerHTTP(cfg.Addr,
+	listenerHTTP, err := httpkit.NewListenerHTTP(cfg.Addr,
 		httpkit.WithLogger(logger),
 		httpkit.WithMetrics(),
 		httpkit.WithHealthCheck(
@@ -27,14 +33,39 @@ func New(cfg *config.Config, logger *slog.Logger) (servekit.Listener, error) {
 			httpkit.LoggingMiddleware(logger),
 		),
 	)
-	if listenerHTTPErr != nil {
-		return nil, fmt.Errorf("create HTTP listener: %w", listenerHTTPErr)
+	if err != nil {
+		return nil, fmt.Errorf("create HTTP listener: %w", err)
 	}
 
-	// TODO: Add gRPC listener here if needed.
+	if kindeCfg := cfg.Kinde(); kindeCfg.Domain != "" {
+		authSvc, authErr := authkinde.NewService(kindeCfg)
+		if authErr != nil {
+			return nil, fmt.Errorf("build authkinde service: %w", authErr)
+		}
 
-	server := servekit.NewServer(logger)
+		authTransport := authkinde.NewTransportHTTP(authSvc, logger, authkinde.TransportOptions{
+			CookieDomain: kindeCfg.CookieDomain,
+		})
+
+		listenerHTTP.Mount("/v1/auth", authTransport)
+	} else {
+		logger.Warn("authkinde: Kinde domain not configured, auth routes are not mounted")
+	}
+
 	server.RegisterListener("http", listenerHTTP)
+
+	listenerGRPC, err := grpckit.NewListenerGRPC(cfg.AddrGRPC,
+		grpckit.WithLogger(logger),
+		grpckit.WithUnaryInterceptors(
+			grpckit.LoggingInterceptor(logger),
+			grpckit.MetricsInterceptor(),
+		),
+	)
+	if err != nil {
+		return nil, fmt.Errorf("create gRPC listener: %w", err)
+	}
+
+	server.RegisterListener("grpc", listenerGRPC)
 
 	return server, nil
 }
