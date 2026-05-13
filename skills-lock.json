@@ -13,11 +13,95 @@
       "skillPath": "skills/agentation-self-driving/SKILL.md",
       "computedHash": "4a543f93d3edc770a684aa554321ca113debc74b276e1cdc4b8a5a8c44932ab7"
     },
+    "api-design-principles": {
+      "source": "wshobson/agents",
+      "sourceType": "github",
+      "skillPath": "plugins/backend-development/skills/api-design-principles/SKILL.md",
+      "computedHash": "3316239df2bdcb41e992857b8142e0239e6964564dd5d7224e470c2ab350a03c"
+    },
+    "architecture-decision-records": {
+      "source": "wshobson/agents",
+      "sourceType": "github",
+      "skillPath": "plugins/documentation-generation/skills/architecture-decision-records/SKILL.md",
+      "computedHash": "bffeafc71791924809ca9e24bfe3f18e87b2a060dbe5484468b4ff06c8e693b2"
+    },
+    "architecture-patterns": {
+      "source": "wshobson/agents",
+      "sourceType": "github",
+      "skillPath": "plugins/backend-development/skills/architecture-patterns/SKILL.md",
+      "computedHash": "cf81f4523a2fd3017590cf2792fe305e4375d2f75d22037b92f05852e22feae2"
+    },
+    "auth-implementation-patterns": {
+      "source": "wshobson/agents",
+      "sourceType": "github",
+      "skillPath": "plugins/developer-essentials/skills/auth-implementation-patterns/SKILL.md",
+      "computedHash": "d38d7eef32534d75370b72be089faee9f58e84a33b7273d601e42eb308017dfb"
+    },
     "brainstorming": {
       "source": "obra/superpowers",
       "sourceType": "github",
       "skillPath": "skills/brainstorming/SKILL.md",
       "computedHash": "8df9b47092524833138b58682d03f2e153a242e550d1693657afdbee0cc9cdb0"
+    },
+    "breakdown-epic-arch": {
+      "source": "github/awesome-copilot",
+      "sourceType": "github",
+      "skillPath": "skills/breakdown-epic-arch/SKILL.md",
+      "computedHash": "76217938e959a2a39f1bda7659416f87b3bb12bd0fe09a3d8684f8a94cacbab4"
+    },
+    "breakdown-epic-pm": {
+      "source": "github/awesome-copilot",
+      "sourceType": "github",
+      "skillPath": "skills/breakdown-epic-pm/SKILL.md",
+      "computedHash": "4417e67abc0e21034ebf077aa8aed9ec5dae5976c1aa862c83e1652bc2e1e2e0"
+    },
+    "breakdown-feature-implementation": {
+      "source": "github/awesome-copilot",
+      "sourceType": "github",
+      "skillPath": "skills/breakdown-feature-implementation/SKILL.md",
+      "computedHash": "7fe64193429f501d63828fbbde0e20f4ee49e5254a3226ece7ff004bf8e7f348"
+    },
+    "breakdown-feature-prd": {
+      "source": "github/awesome-copilot",
+      "sourceType": "github",
+      "skillPath": "skills/breakdown-feature-prd/SKILL.md",
+      "computedHash": "e0a851ff26f6ddc213c390556ede39ac8fa43b76076b4a187c8c759128fe9fce"
+    },
+    "breakdown-plan": {
+      "source": "github/awesome-copilot",
+      "sourceType": "github",
+      "skillPath": "skills/breakdown-plan/SKILL.md",
+      "computedHash": "24abce941a7c952ad3da3b1acf4e6fdf566ba24ffeaa2e37d74d68fb401ef7c3"
+    },
+    "breakdown-test": {
+      "source": "github/awesome-copilot",
+      "sourceType": "github",
+      "skillPath": "skills/breakdown-test/SKILL.md",
+      "computedHash": "aec76bd6b3246889ada4fecba3f78a6c5d0717d66a70af5791279556a3891759"
+    },
+    "changelog-automation": {
+      "source": "wshobson/agents",
+      "sourceType": "github",
+      "skillPath": "plugins/documentation-generation/skills/changelog-automation/SKILL.md",
+      "computedHash": "186f3db6c967bd19ff6ffeeb5d6cae84f7443cdae50835b57f61449a5696e7a4"
+    },
+    "code-review-excellence": {
+      "source": "wshobson/agents",
+      "sourceType": "github",
+      "skillPath": "plugins/developer-essentials/skills/code-review-excellence/SKILL.md",
+      "computedHash": "0f585a4ad2f6d8353069ca9051c6f0e8865abb9d3a6a268d423784c3c3852962"
+    },
+    "competitive-landscape": {
+      "source": "wshobson/agents",
+      "sourceType": "github",
+      "skillPath": "plugins/startup-business-analyst/skills/competitive-landscape/SKILL.md",
+      "computedHash": "b312307bc16b8dd98b9ff9657a95d69d51870030179e60066004fd2399cdb69a"
+    },
+    "context-driven-development": {
+      "source": "wshobson/agents",
+      "sourceType": "github",
+      "skillPath": "plugins/conductor/skills/context-driven-development/SKILL.md",
+      "computedHash": "3c1f0ac51a407035a55d114fd621e4a078ee7764831f6d46be8865bf2fd5d5ef"
     },
     "copy": {
       "source": "marsolab/skills",
@@ -25,11 +109,59 @@
       "skillPath": "plugins/copy/skills/copy/SKILL.md",
       "computedHash": "7179a425a4ffd97ba6ca58bf14b61fa957f41a3859cda47ed6752f0757c8c5a3"
     },
+    "cost-optimization": {
+      "source": "wshobson/agents",
+      "sourceType": "github",
+      "skillPath": "plugins/cloud-infrastructure/skills/cost-optimization/SKILL.md",
+      "computedHash": "c4322ff908501140bd9c5acf762736391717913ebc24077fd5a3d82ffb4003de"
+    },
+    "cqrs-implementation": {
+      "source": "wshobson/agents",
+      "sourceType": "github",
+      "skillPath": "plugins/backend-development/skills/cqrs-implementation/SKILL.md",
+      "computedHash": "e5cc10b9f389e4744069b7f455923d59ffa56a7fa07d2b8488a5b1ec86d5f305"
+    },
+    "create-readme": {
+      "source": "github/awesome-copilot",
+      "sourceType": "github",
+      "skillPath": "skills/create-readme/SKILL.md",
+      "computedHash": "d0ece1b2164ce1376e4ab6e98d6ac079df3a2a94f5f02224362b6a1ce2516ae9"
+    },
+    "create-specification": {
+      "source": "github/awesome-copilot",
+      "sourceType": "github",
+      "skillPath": "skills/create-specification/SKILL.md",
+      "computedHash": "45b9ef98b0fb82ba0e1aee65dfb464fa1f8494a14a557b9788d73aae87e9e618"
+    },
+    "dependabot": {
+      "source": "github/awesome-copilot",
+      "sourceType": "github",
+      "skillPath": "skills/dependabot/SKILL.md",
+      "computedHash": "4a661150300bc3732c12cd23fd18e034cccbc80f1715e0baf48ffaa2b3fb2f6e"
+    },
+    "deployment-pipeline-design": {
+      "source": "wshobson/agents",
+      "sourceType": "github",
+      "skillPath": "plugins/cicd-automation/skills/deployment-pipeline-design/SKILL.md",
+      "computedHash": "da8776e5e82582bb4bf19c282ef76c1b4b511a8f3722ce2885e91b2ac348803c"
+    },
+    "design-system-patterns": {
+      "source": "wshobson/agents",
+      "sourceType": "github",
+      "skillPath": "plugins/ui-design/skills/design-system-patterns/SKILL.md",
+      "computedHash": "5f8c9b187e77fcb31db78da2f7b55f905dcd2357454624cac93f00c766ace346"
+    },
     "dispatching-parallel-agents": {
       "source": "obra/superpowers",
       "sourceType": "github",
       "skillPath": "skills/dispatching-parallel-agents/SKILL.md",
       "computedHash": "e21044ae7496fc285f1df9ff3fb518a3a20bea6f5216c1f59f4987e12c769a0a"
+    },
+    "e2e-testing-patterns": {
+      "source": "wshobson/agents",
+      "sourceType": "github",
+      "skillPath": "plugins/developer-essentials/skills/e2e-testing-patterns/SKILL.md",
+      "computedHash": "37ea37e42a81c926ebd81924691a15fb657df7c8a52b863c34967e5ab99cdc22"
     },
     "executing-plans": {
       "source": "obra/superpowers",
@@ -49,6 +181,48 @@
       "skillPath": "plugins/front-dev/skills/front-dev/SKILL.md",
       "computedHash": "b639efe2084110d387d7a60302d164970f12bb922484e4874a8cf1685acbcac9"
     },
+    "gdpr-data-handling": {
+      "source": "wshobson/agents",
+      "sourceType": "github",
+      "skillPath": "plugins/hr-legal-compliance/skills/gdpr-data-handling/SKILL.md",
+      "computedHash": "168cc9708309cdecdbb7f618ab564d2897efc65715abc472a77265479e517c50"
+    },
+    "gh-cli": {
+      "source": "github/awesome-copilot",
+      "sourceType": "github",
+      "skillPath": "skills/gh-cli/SKILL.md",
+      "computedHash": "cbe644b0c6760ae2a1eaafa39133920d889331327065d92a131675a665273e56"
+    },
+    "git-advanced-workflows": {
+      "source": "wshobson/agents",
+      "sourceType": "github",
+      "skillPath": "plugins/developer-essentials/skills/git-advanced-workflows/SKILL.md",
+      "computedHash": "c42c3059154889e4f80818407c6634197eefe87dc752d6a0cad8cfc2391550bb"
+    },
+    "github-actions-templates": {
+      "source": "wshobson/agents",
+      "sourceType": "github",
+      "skillPath": "plugins/cicd-automation/skills/github-actions-templates/SKILL.md",
+      "computedHash": "93e92fd674dea084628e95f9c48af806f9672ac08f815c84f85adedb55742c59"
+    },
+    "github-issues": {
+      "source": "github/awesome-copilot",
+      "sourceType": "github",
+      "skillPath": "skills/github-issues/SKILL.md",
+      "computedHash": "3a752d99ddc3178f443fe242d490800398b2b42030a9d221b298b9486d90cc87"
+    },
+    "github-release": {
+      "source": "github/awesome-copilot",
+      "sourceType": "github",
+      "skillPath": "skills/github-release/SKILL.md",
+      "computedHash": "c9804c5fb18cd776865a2f561488b1842aa4c350e6b95d14cd8c08320f54a6a4"
+    },
+    "gitops-workflow": {
+      "source": "wshobson/agents",
+      "sourceType": "github",
+      "skillPath": "plugins/kubernetes-operations/skills/gitops-workflow/SKILL.md",
+      "computedHash": "e8df22024090440fce624e6a99faca4b66aa267a428b5a63a0c0416fa4eb2629"
+    },
     "go-cli": {
       "source": "marsolab/skills",
       "sourceType": "github",
@@ -60,6 +234,12 @@
       "sourceType": "github",
       "skillPath": "plugins/go-concurrency/skills/go-concurrency/SKILL.md",
       "computedHash": "38ccea3191151b86864abdb638600cd75f1758d0871ec42b5c116583d63b1828"
+    },
+    "go-concurrency-patterns": {
+      "source": "wshobson/agents",
+      "sourceType": "github",
+      "skillPath": "plugins/systems-programming/skills/go-concurrency-patterns/SKILL.md",
+      "computedHash": "3d1d2b19d6ab828573dbab1f614519901a9925cc20938ca98a6f807d6548bfed"
     },
     "go-dev": {
       "source": "marsolab/skills",
@@ -109,11 +289,47 @@
       "skillPath": "plugins/go-testing/skills/go-testing/SKILL.md",
       "computedHash": "c664b99ea382bda1b9a4d6b57ff591be005dbb724c52b06f0e453fb583ebdf55"
     },
+    "grafana-dashboards": {
+      "source": "wshobson/agents",
+      "sourceType": "github",
+      "skillPath": "plugins/observability-monitoring/skills/grafana-dashboards/SKILL.md",
+      "computedHash": "e9b692daf06faf96fa28b2b98f50b362e68b974db5ab503963a610c719cda79b"
+    },
+    "helm-chart-scaffolding": {
+      "source": "wshobson/agents",
+      "sourceType": "github",
+      "skillPath": "plugins/kubernetes-operations/skills/helm-chart-scaffolding/SKILL.md",
+      "computedHash": "227baa46e7fcf59448b7f670ba504a0dbd6ae0e5d80338c066037e01b2b15755"
+    },
     "kinde": {
       "source": "marsolab/skills",
       "sourceType": "github",
       "skillPath": "plugins/kinde/skills/kinde/SKILL.md",
       "computedHash": "ad948da2b4bc11790fbabdc276af76bc01423333c080b39e5a0edb8c62c83bd0"
+    },
+    "lsp-setup": {
+      "source": "github/awesome-copilot",
+      "sourceType": "github",
+      "skillPath": "skills/lsp-setup/SKILL.md",
+      "computedHash": "f5e42d0c6c1dca6f93f1adc7ffa44321bd1461ea36a2a9e48d269c277ff1e885"
+    },
+    "market-sizing-analysis": {
+      "source": "wshobson/agents",
+      "sourceType": "github",
+      "skillPath": "plugins/startup-business-analyst/skills/market-sizing-analysis/SKILL.md",
+      "computedHash": "06da5bf568d0af6a8c493e8091edff291eb11de7b0a906b02a182c93dfcf5681"
+    },
+    "microservices-patterns": {
+      "source": "wshobson/agents",
+      "sourceType": "github",
+      "skillPath": "plugins/backend-development/skills/microservices-patterns/SKILL.md",
+      "computedHash": "ad3f082b4d343294249d4407f1019d98004d659c5d1b4a1bd5feb5ee0378589e"
+    },
+    "prd": {
+      "source": "github/awesome-copilot",
+      "sourceType": "github",
+      "skillPath": "skills/prd/SKILL.md",
+      "computedHash": "1f3e1f005fc40fda85d250ae906c8ee4f7e8e833e23adfeca6542c19609fd7cd"
     },
     "receiving-code-review": {
       "source": "obra/superpowers",
@@ -121,17 +337,53 @@
       "skillPath": "skills/receiving-code-review/SKILL.md",
       "computedHash": "2760c85d4f4117b0006e7ba755f4bbd61f8f4c185f347999763c97f507274e30"
     },
+    "remotion-best-practices": {
+      "source": "remotion-dev/skills",
+      "sourceType": "github",
+      "skillPath": "skills/remotion/SKILL.md",
+      "computedHash": "006f8413941b59eff54a7ce64851b8a2fb79e7a3a5f1a895e97a48f01482553d"
+    },
     "requesting-code-review": {
       "source": "obra/superpowers",
       "sourceType": "github",
       "skillPath": "skills/requesting-code-review/SKILL.md",
       "computedHash": "874f3786b05007a8b4a60452a4cd89b9917c645d34b6b1e40ea05037d12f0e67"
     },
+    "saga-orchestration": {
+      "source": "wshobson/agents",
+      "sourceType": "github",
+      "skillPath": "plugins/backend-development/skills/saga-orchestration/SKILL.md",
+      "computedHash": "3250e78e321cf65df11b077578d33a6db93852427c798e5cf4c74e202897cc90"
+    },
+    "slo-implementation": {
+      "source": "wshobson/agents",
+      "sourceType": "github",
+      "skillPath": "plugins/observability-monitoring/skills/slo-implementation/SKILL.md",
+      "computedHash": "42401f6f1039dcf20db7c872135632ed7725a4dbdfa840e03d72c51eae7ae0b1"
+    },
+    "sql-optimization": {
+      "source": "github/awesome-copilot",
+      "sourceType": "github",
+      "skillPath": "skills/sql-optimization/SKILL.md",
+      "computedHash": "47c930907f25d67454ac8c2d155785eae3dce72242960d0c0e9ebf2ced9cd231"
+    },
     "sqlite": {
       "source": "marsolab/skills",
       "sourceType": "github",
       "skillPath": "plugins/sqlite/skills/sqlite/SKILL.md",
       "computedHash": "c246dcb094e7e330d5ddcb5644184c0f4ecdabee1731afc040b21f675570c950"
+    },
+    "startup-financial-modeling": {
+      "source": "wshobson/agents",
+      "sourceType": "github",
+      "skillPath": "plugins/startup-business-analyst/skills/startup-financial-modeling/SKILL.md",
+      "computedHash": "74e55d6be56f92ec604a83fcbb29b55c966776b7ae743f025c197b1f388e8b04"
+    },
+    "startup-metrics-framework": {
+      "source": "wshobson/agents",
+      "sourceType": "github",
+      "skillPath": "plugins/startup-business-analyst/skills/startup-metrics-framework/SKILL.md",
+      "computedHash": "fa8fdfe13cb69e6fc899ff924efa262610694dc27eafcc400f645b3ece7caa8f"
     },
     "subagent-driven-development": {
       "source": "obra/superpowers",
@@ -150,6 +402,12 @@
       "sourceType": "github",
       "skillPath": "skills/systematic-debugging/SKILL.md",
       "computedHash": "7246fdd3a795fc3daff0af72044ca99bf836e4e6a46844742858786fdfb86488"
+    },
+    "task-coordination-strategies": {
+      "source": "wshobson/agents",
+      "sourceType": "github",
+      "skillPath": "plugins/agent-teams/skills/task-coordination-strategies/SKILL.md",
+      "computedHash": "ed4d1652bdc81a055e2ab2e13bf288836c3a6174009d9a780e4dd4b4be42d1ae"
     },
     "test-driven-development": {
       "source": "obra/superpowers",
