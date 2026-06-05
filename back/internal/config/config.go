@@ -1,3 +1,5 @@
+// Package config defines the application configuration and binds it to CLI
+// flags and environment variables via scotty.
 package config
 
 import (

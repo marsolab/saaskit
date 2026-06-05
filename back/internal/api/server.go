@@ -1,3 +1,6 @@
+// Package api wires the saaskit HTTP and gRPC listeners together into a
+// single server, mounting the authkinde transport when Kinde credentials are
+// configured.
 package api
 
 import (

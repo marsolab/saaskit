@@ -20,6 +20,6 @@ export default defineConfig({
   integrations: [sitemap(), partytown(), starlight({ title: 'Docs' }), mdx(), react()],
   adapter: cloudflare(),
   vite: {
-    plugins: [tailwindcss()]
-  }
+    plugins: [tailwindcss()],
+  },
 });
