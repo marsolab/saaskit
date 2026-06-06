@@ -1,0 +1,8 @@
+bun.lock
+dist/
+.astro/
+.wrangler/
+node_modules/
+src/components/ui/
+public/
+worker-configuration.d.ts

@@ -1,3 +1,6 @@
+// Command api is the entrypoint for the saaskit API server. It builds the
+// configuration from CLI flags / environment variables and serves the HTTP
+// and gRPC listeners until interrupted.
 package main
 
 import (

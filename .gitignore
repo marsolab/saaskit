@@ -1,6 +1,10 @@
 # Claude Code worktrees
 .claude/worktrees/
 
+# Compiled Go API binary (produced by `make build-go`)
+/api
+/back/api
+
 # Logs
 logs
 *.log
