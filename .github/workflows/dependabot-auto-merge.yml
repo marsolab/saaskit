@@ -1,0 +1,102 @@
+name: Dependabot auto-merge
+
+# Once a day, sweep every open Dependabot pull request and drive it to merge:
+#
+#   1. Conflict / stale branch handling — if a PR is CONFLICTING or BEHIND its
+#      base, ask Dependabot to rebase. Dependabot regenerates the lockfile on
+#      rebase, which is what clears the conflicts these PRs almost always have.
+#   2. Merge — arm auto-merge so GitHub merges the PR the moment its checks pass
+#      (the PR workflow in pr.yml). If the repo does not allow auto-merge, fall
+#      back to merging directly, but only when the PR is already green and clean.
+#
+# Scope is limited to PRs authored by Dependabot. Per the repo owner's choice,
+# ALL update types are merged once checks pass — patch, minor and major — so no
+# version-level filtering is applied here.
+#
+# Note: scheduled workflows only run from the default branch, so this must be
+# merged to main before the daily run takes effect. For a strict "merge only
+# after CI passes" guarantee, make the "PR / ci / build" check required in the
+# branch protection rules for main.
+
+on:
+  schedule:
+    # 07:00 UTC daily — a couple of hours after Dependabot opens its daily PRs.
+    - cron: "0 7 * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write       # merge PRs and delete the merged branch
+  pull-requests: write  # enable auto-merge and post the rebase comment
+
+concurrency:
+  group: dependabot-auto-merge
+  cancel-in-progress: false
+
+jobs:
+  sweep:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Merge and babysit Dependabot PRs
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          # Change to "merge" or "rebase" if squash merges are disabled for the repo.
+          MERGE_METHOD: squash
+        run: |
+          set -euo pipefail
+
+          # Open, non-draft PRs authored by Dependabot.
+          mapfile -t prs < <(
+            gh pr list --repo "$REPO" \
+              --author "app/dependabot" \
+              --state open \
+              --json number,isDraft \
+              --jq '.[] | select(.isDraft == false) | .number'
+          )
+
+          if [ "${#prs[@]}" -eq 0 ]; then
+            echo "No open Dependabot PRs. Nothing to do."
+            exit 0
+          fi
+
+          echo "Found ${#prs[@]} Dependabot PR(s): ${prs[*]}"
+
+          for pr in "${prs[@]}"; do
+            echo "::group::PR #$pr"
+
+            # GitHub computes mergeability asynchronously and reports UNKNOWN
+            # until it finishes; poll a few times so conflict detection is reliable.
+            mergeable=UNKNOWN; state=UNKNOWN; title=""
+            for _ in 1 2 3 4 5; do
+              if info=$(gh pr view "$pr" --repo "$REPO" \
+                          --json mergeable,mergeStateStatus,title \
+                          --jq '"\(.mergeable)\t\(.mergeStateStatus)\t\(.title)"'); then
+                IFS=$'\t' read -r mergeable state title <<<"$info"
+              else
+                echo "Could not read PR #$pr; skipping this run."
+                break
+              fi
+              [ "$mergeable" != "UNKNOWN" ] && break
+              sleep 5
+            done
+            echo "PR #$pr — mergeable=$mergeable state=$state — $title"
+
+            # 1) Clear branch-level blockers so the PR can reach a mergeable state.
+            if [ "$mergeable" = "CONFLICTING" ] || [ "$state" = "BEHIND" ]; then
+              echo "Branch is mergeable=$mergeable/state=$state — asking Dependabot to rebase."
+              gh pr comment "$pr" --repo "$REPO" --body "@dependabot rebase" || true
+            fi
+
+            # 2) Arm auto-merge so the PR merges as soon as its checks pass.
+            if gh pr merge "$pr" --repo "$REPO" --auto --"$MERGE_METHOD" --delete-branch; then
+              echo "Auto-merge armed for PR #$pr (will merge when checks pass)."
+            elif [ "$state" = "CLEAN" ]; then
+              # Repo does not allow auto-merge, but the PR is already green and clean.
+              echo "Auto-merge unavailable; PR #$pr is CLEAN — merging directly."
+              gh pr merge "$pr" --repo "$REPO" --"$MERGE_METHOD" --delete-branch || true
+            else
+              echo "Auto-merge unavailable and PR #$pr is not CLEAN ($state) — leaving for the next run."
+            fi
+
+            echo "::endgroup::"
+          done
