@@ -1,4 +1,4 @@
-FROM alpine:3.23
+FROM alpine:3.24
 RUN apk add --no-cache ca-certificates
 
 # The statically linked Go API binary is built by the CI pipeline (see
