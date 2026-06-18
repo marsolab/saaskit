@@ -16,7 +16,7 @@ jobs:
       # another one; this also ensures a complete SDK (covdata, race, ...).
       GOTOOLCHAIN: local
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
 
       - uses: oven-sh/setup-bun@v2
         with:
