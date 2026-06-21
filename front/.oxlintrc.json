@@ -1,0 +1,44 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "plugins": ["typescript", "react", "jsx-a11y", "import", "unicorn", "oxc", "promise"],
+  "categories": {
+    "correctness": "error",
+    "suspicious": "warn",
+    "perf": "warn"
+  },
+  "env": {
+    "browser": true,
+    "es2024": true
+  },
+  "settings": {
+    "react": {
+      "version": "19.0"
+    }
+  },
+  "rules": {
+    "react/react-in-jsx-scope": "off",
+    "react/no-unknown-property": "off",
+    "import/no-unassigned-import": [
+      "warn",
+      { "allow": ["**/*.css", "**/*.scss", "@fontsource-variable/**"] }
+    ]
+  },
+  "overrides": [
+    {
+      "files": ["**/*.test.ts", "**/*.test.tsx"],
+      "env": {
+        "browser": true,
+        "es2024": true
+      }
+    }
+  ],
+  "ignorePatterns": [
+    "dist/",
+    ".astro/",
+    ".wrangler/",
+    "node_modules/",
+    "public/",
+    "worker-configuration.d.ts",
+    "src/components/ui/"
+  ]
+}

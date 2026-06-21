@@ -1,0 +1,12 @@
+#!/usr/bin/env sh
+# Pre-commit hook for the saaskit monorepo.
+# Enable once per clone with: make hooks
+#
+# Runs lint + format on staged files only (fast). Frontend uses lint-staged,
+# which oxlint-fixes and prettier-formats each staged file, then re-stages it.
+
+# Frontend (front/): only run if something under front/ is staged.
+if git diff --cached --name-only --diff-filter=ACMR | grep -q '^front/'; then
+  echo "▶ front: lint-staged (oxlint --fix + prettier --write)"
+  cd front && exec bunx lint-staged
+fi
