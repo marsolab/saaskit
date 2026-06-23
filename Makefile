@@ -4,7 +4,15 @@ SHELL := /bin/bash
 	format-check format-check-ui format-check-go \
 	lint lint-ui lint-go \
 	test test-ui test-go \
-	build build-darwin build-ui build-go build-go-darwin
+	build build-darwin build-ui build-go build-go-darwin \
+	hooks
+
+# --- Git hooks --------------------------------------------------------------
+
+# Enable the committed pre-commit hook (run once per clone).
+hooks:
+	git config core.hooksPath .githooks
+	@echo "Git hooks enabled: core.hooksPath -> .githooks"
 
 # --- Formatting -------------------------------------------------------------
 
