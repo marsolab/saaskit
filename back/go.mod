@@ -3,7 +3,7 @@ module github.com/marsolab/saaskit/back
 go 1.26
 
 require (
-	github.com/go-chi/chi/v5 v5.3.0
+	github.com/go-chi/chi/v5 v5.3.1
 	github.com/heartwilltell/scotty v0.4.0
 	github.com/marsolab/servekit v0.4.7
 	golang.org/x/oauth2 v0.36.0
