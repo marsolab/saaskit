@@ -24,7 +24,7 @@ when_to_use: >-
   repo: "add an endpoint", "expose /healthz", "wire up a REST API",
   "build a backend service", "add a middleware". SKIP for non-Go HTTP
   frameworks (Express, FastAPI, Spring, Actix).
-version: 1.1.0
+version: 1.2.0
 tags:
   - go
   - golang
@@ -145,7 +145,8 @@ func (h *UserHandler) Create(w http.ResponseWriter, r *http.Request) {
         writeError(w, http.StatusBadRequest, "invalid json")
         return
     }
-    defer r.Body.Close()
+    // No `defer r.Body.Close()` — the server closes the request body for
+    // you; a handler-side Close adds a bare unchecked error for nothing.
 
     user, err := h.svc.CreateUser(r.Context(), req.Email, req.Name)
     if err != nil {
@@ -204,13 +205,23 @@ layer that maps errors to status codes.
 func writeJSON(w http.ResponseWriter, status int, v any) {
     w.Header().Set("Content-Type", "application/json")
     w.WriteHeader(status)
-    _ = json.NewEncoder(w).Encode(v)
+    if err := json.NewEncoder(w).Encode(v); err != nil {
+        // Status and headers are already on the wire, so you can't change
+        // the response — but the write failed, so log it rather than
+        // discarding with `_ =`. This is the rare spot you handle by
+        // logging because returning the error is no longer possible.
+        slog.Default().Error("encode response", slog.Any("err", err))
+    }
 }
 
 func writeError(w http.ResponseWriter, status int, msg string) {
     writeJSON(w, status, map[string]string{"error": msg})
 }
 ```
+
+Everywhere else, propagate the error instead of logging it. Writers like
+`bufio.Writer` also need `Flush` checked before the handler returns — see
+the go-errors skill for the named-return + deferred `errors.Join` form.
 
 ## Testing handlers
 

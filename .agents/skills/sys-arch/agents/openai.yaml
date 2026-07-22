@@ -1,0 +1,6 @@
+interface:
+  display_name: "Sys Arch"
+  short_description: "Production system architecture guidance"
+  default_prompt: "Use $sys-arch to evaluate the architecture trade-offs for this system design."
+policy:
+  allow_implicit_invocation: true

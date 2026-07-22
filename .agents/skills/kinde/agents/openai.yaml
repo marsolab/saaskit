@@ -1,0 +1,6 @@
+interface:
+  display_name: "Kinde"
+  short_description: "Kinde auth integration guidance"
+  default_prompt: "Use $kinde to integrate Kinde authentication into this Go or TypeScript app."
+policy:
+  allow_implicit_invocation: true

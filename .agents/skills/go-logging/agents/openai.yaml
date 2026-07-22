@@ -1,0 +1,6 @@
+interface:
+  display_name: "Go Logging"
+  short_description: "Structured logging in Go with slog"
+  default_prompt: "Use $go-logging to add structured slog logging to this Go service."
+policy:
+  allow_implicit_invocation: true

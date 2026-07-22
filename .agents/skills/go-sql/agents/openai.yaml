@@ -1,0 +1,6 @@
+interface:
+  display_name: "Go SQL"
+  short_description: "Type-safe SQL in Go with sqlc"
+  default_prompt: "Use $go-sql to design sqlc queries and goose migrations for this Go data layer."
+policy:
+  allow_implicit_invocation: true

@@ -87,7 +87,7 @@ If they agree:
 
 ```bash
 bun add -d agentation
-# Also install the Claude Code skill for setup automation:
+# Also install the Agentation skill for setup automation:
 npx skills add benjitaylor/agentation
 ```
 
@@ -277,8 +277,8 @@ import { Agentation } from 'agentation';
 {import.meta.env.DEV && <Agentation />}
 ```
 
-**MCP Integration**: Agentation has an optional MCP server that lets Claude
-Code read annotations in real-time without manual copy-pasting. Mention it as
+**MCP Integration**: Agentation has an optional MCP server that lets the agent
+read annotations in real-time without manual copy-pasting. Mention it as
 an option only after the user has acknowledged the security note above —
 real-time third-party content exposure has a higher prompt-injection risk than
 manual paste, where the user reviews each message before sending.

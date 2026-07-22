@@ -1,0 +1,6 @@
+interface:
+  display_name: "Go Lint"
+  short_description: "Go linting and formatting setup"
+  default_prompt: "Use $go-lint to configure golangci-lint and fix lint findings in this Go project."
+policy:
+  allow_implicit_invocation: true

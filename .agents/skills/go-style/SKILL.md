@@ -24,7 +24,7 @@ when_to_use: >-
   variable shadowing, defer timing in loops, nil-map writes.
   SKIP when the task is dominated by a more specific sibling
   (concurrency, errors, HTTP, SQL, logging, testing, lint, CLI).
-version: 1.1.0
+version: 1.2.0
 tags:
   - go
   - golang

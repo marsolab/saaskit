@@ -1,0 +1,6 @@
+interface:
+  display_name: "Go CLI"
+  short_description: "Go command-line tool patterns"
+  default_prompt: "Use $go-cli to design a small Go command-line tool with clear flags and exit codes."
+policy:
+  allow_implicit_invocation: true

@@ -103,17 +103,20 @@ func example() {
 
 // Defers run at function end, not block end
 for _, f := range files {
-    file, _ := os.Open(f)
+    file, err := os.Open(f)
+    if err != nil {
+        continue
+    }
     defer file.Close()  // ALL close at function end, not loop iteration
 }
 
-// CORRECT: use closure for per-iteration cleanup
+// CORRECT: give each iteration its own function so the defer runs
+// per-iteration. That function is also where the Close error gets
+// handled — named return + errors.Join; see the go-errors skill.
 for _, f := range files {
-    func() {
-        file, _ := os.Open(f)
-        defer file.Close()  // closes after this iteration
-        process(file)
-    }()
+    if err := readOne(f); err != nil {
+        return err
+    }
 }
 ```
 
@@ -189,6 +192,11 @@ if err != nil {
     return err
 }
 ```
+
+These snippets leave `Close` unchecked to isolate the ordering-and-nil
+lesson; under the bundled `errcheck` config a bare `resp.Body.Close()` is
+still flagged. Close the body via the named-return + deferred
+`errors.Join` form — see the go-errors skill.
 
 Modern Go (CL 737720, [golang/go#77370](https://github.com/golang/go/issues/77370))
 drains any remaining body inside `Close()` — up to 256 KB or 50 ms — so

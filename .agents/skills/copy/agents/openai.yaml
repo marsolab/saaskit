@@ -1,0 +1,6 @@
+interface:
+  display_name: "SaaS Copywriting"
+  short_description: "SaaS copywriting and positioning"
+  default_prompt: "Use $copy to improve this SaaS landing page copy for clarity and conversion."
+policy:
+  allow_implicit_invocation: true

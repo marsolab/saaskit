@@ -1,0 +1,6 @@
+interface:
+  display_name: "Go Style"
+  short_description: "Idiomatic Go style and organization"
+  default_prompt: "Use $go-style to make this Go code idiomatic, readable, and maintainable."
+policy:
+  allow_implicit_invocation: true

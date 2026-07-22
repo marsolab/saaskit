@@ -26,7 +26,7 @@ when_to_use: >-
   phrases like "write a test for…", "table-driven test", "add a
   benchmark", "mock this with Querier". SKIP for non-Go testing
   frameworks.
-version: 1.1.0
+version: 1.2.0
 tags:
   - go
   - golang
@@ -110,7 +110,11 @@ func mustOpen(t *testing.T, path string) *os.File {
     t.Helper()
     f, err := os.Open(path)
     td.Require(t).CmpNoError(err)
-    t.Cleanup(func() { f.Close() })
+    t.Cleanup(func() {
+        if err := f.Close(); err != nil {
+            t.Errorf("close %s: %v", path, err)
+        }
+    })
     return f
 }
 ```

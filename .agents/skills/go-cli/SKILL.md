@@ -20,7 +20,7 @@ when_to_use: >-
   urfave-cli. ALSO TRIGGER on phrases like "write a CLI", "build a
   command-line tool", "make this a CLI", "add a subcommand", "parse
   these flags". SKIP for non-Go CLI frameworks (click, clap, oclif).
-version: 1.1.0
+version: 1.2.0
 tags:
   - go
   - golang
@@ -169,15 +169,28 @@ if flag.NArg() == 0 {
     return nil
 }
 for _, path := range flag.Args() {
+    if err := processPath(path); err != nil {
+        return err
+    }
+}
+
+// ... elsewhere, at package scope. A per-path helper gives each file its
+// own defer (no accumulation across the loop) and reports the Close error
+// instead of dropping it.
+func processPath(path string) (rErr error) {
     f, err := os.Open(path)
     if err != nil {
         return fmt.Errorf("open %s: %w", path, err)
     }
+    defer func() {
+        if err := f.Close(); err != nil {
+            rErr = errors.Join(rErr, fmt.Errorf("close %s: %w", path, err))
+        }
+    }()
     if err := process(f); err != nil {
-        f.Close()
         return fmt.Errorf("process %s: %w", path, err)
     }
-    f.Close()
+    return nil
 }
 ```
 

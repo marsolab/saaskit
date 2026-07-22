@@ -71,12 +71,16 @@ The "line of sight" pattern keeps the success path at minimal indentation:
 
 ```go
 // GOOD: guard clauses return early
-func ProcessFile(path string) error {
+func ProcessFile(path string) (rErr error) {
     f, err := os.Open(path)
     if err != nil {
         return fmt.Errorf("open %s: %w", path, err)
     }
-    defer f.Close()
+    defer func() {
+        if err := f.Close(); err != nil {
+            rErr = errors.Join(rErr, fmt.Errorf("close %s: %w", path, err))
+        }
+    }()
 
     data, err := io.ReadAll(f)
     if err != nil {
@@ -176,3 +180,50 @@ func cleanup(db *sql.DB, file *os.File) error {
     return errors.Join(db.Close(), file.Close())
 }
 ```
+
+## Deferred cleanup: never discard the Close error
+
+`Close`, `Flush`, and `Write` return errors that matter — a failed
+`Close` on a writer or a network connection can mean buffered data never
+reached its destination. The "check every error" rule covers them, and a
+`defer` doesn't exempt them.
+
+The wrong instinct is to blank the error and suppress the linter:
+
+```go
+// BAD: discards a real error, then silences errcheck to hide it
+defer func() { _ = conn.Close() }() //nolint:errcheck
+```
+
+Instead, name the function's error return and fold the cleanup failure in
+from the deferred closure with `errors.Join`:
+
+```go
+// GOOD: the named return lets the defer report Close's failure
+func Ping(ctx context.Context, addr string) (pong Pong, rErr error) {
+    conn, err := (&net.Dialer{}).DialContext(ctx, "udp", addr)
+    if err != nil {
+        return Pong{}, fmt.Errorf("dial %q: %w", addr, err)
+    }
+    defer func() {
+        if err := conn.Close(); err != nil {
+            rErr = errors.Join(rErr, fmt.Errorf("close conn: %w", err))
+        }
+    }()
+
+    // Any mid-body `return Pong{}, fmt.Errorf(...)` still runs the defer,
+    // so a close failure is joined onto whatever the body returned.
+    return doPing(conn)
+}
+```
+
+`errors.Join(rErr, ...)` preserves the body's error and appends the close
+failure; when both are nil the result stays nil. It is the only form that
+reports a cleanup failure without swallowing the original error.
+
+Reach for this every time, not just for writers. Ignoring `Close` on a
+read-only file or a fully-read HTTP response body rarely loses anything,
+but the bundled `errcheck` config flags it anyway — `check-blank` catches
+`_ = f.Close()`, and a bare `f.Close()` is an unchecked error in its own
+right. The deferred handler costs nothing and settles the decision
+uniformly.

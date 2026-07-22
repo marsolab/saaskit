@@ -32,7 +32,7 @@ tags:
 Kinde is an Auth0-style identity platform: hosted login pages,
 OAuth 2.0 / OIDC under the hood, plus organizations (multi-tenancy),
 roles + permissions (RBAC), feature flags, billing, and a REST
-management API. This skill covers the integration patterns Claude
+management API. This skill covers the integration patterns the agent
 needs most: **Go** and **TypeScript** (Node, Next.js App Router,
 plain TS server, browser SPA).
 
@@ -192,7 +192,7 @@ SDK, or a use case doesn't fit one, fall back to the protocol:
 Endpoints, parameter tables, PKCE recipe, and security checklist in
 `references/oauth-without-sdk.md`.
 
-## Pitfalls Claude should call out
+## Pitfalls the agent should call out
 
 1. **Scope is `offline`, not `offline_access`.** Kinde explicitly
    does not support `offline_access`. If a refresh token is missing,

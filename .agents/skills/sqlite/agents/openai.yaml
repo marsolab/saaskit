@@ -1,0 +1,6 @@
+interface:
+  display_name: "SQLite"
+  short_description: "Production-grade SQLite patterns"
+  default_prompt: "Use $sqlite to design and tune a production SQLite schema for this application."
+policy:
+  allow_implicit_invocation: true

@@ -1,0 +1,6 @@
+interface:
+  display_name: "Go Testing"
+  short_description: "Idiomatic Go tests and benchmarks"
+  default_prompt: "Use $go-testing to write table-driven Go tests with useful assertions."
+policy:
+  allow_implicit_invocation: true

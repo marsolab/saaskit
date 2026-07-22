@@ -22,7 +22,7 @@ when_to_use: >-
   up linting", "configure golangci-lint", "why is the linter
   complaining", "run gofmt on this", "fix the imports". SKIP for
   non-Go linters (eslint, ruff, clippy).
-version: 1.1.0
+version: 1.2.0
 tags:
   - go
   - golang
@@ -117,6 +117,14 @@ buf, err := os.ReadFile(path)
 
 `//nolint` without a linter name disables every linter on that line —
 avoid it. Always name the linter and add a comment.
+
+`//nolint:errcheck` is almost never legitimate. A flagged unchecked error
+— usually a deferred `Close`, `Flush`, or `Write` — is an error to
+handle, not noise to silence. The bundled config enables `check-blank`,
+so `_ = f.Close()` is reported, and it never applies golangci-lint's
+`std-error-handling` exclusion preset, so a bare `f.Close()` is flagged
+too. Handle them with a named return and a deferred `errors.Join` (see
+the go-errors skill) instead of suppressing.
 
 ## Pre-commit integration
 

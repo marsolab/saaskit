@@ -1,0 +1,6 @@
+interface:
+  display_name: "Go Dev"
+  short_description: "Umbrella skill for Go development"
+  default_prompt: "Use $go-dev to implement or review this Go feature and route to focused Go skills."
+policy:
+  allow_implicit_invocation: true

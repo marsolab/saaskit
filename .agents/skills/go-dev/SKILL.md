@@ -30,7 +30,7 @@ tags:
 
 # Go Dev (umbrella)
 
-This skill exists to make sure Claude has Go context loaded as soon as
+This skill exists to make sure the agent has Go context loaded as soon as
 the conversation involves Go. It is intentionally short. Its job is to
 route: pick the focused sibling skill(s) that own the deep reference
 material for the task at hand.

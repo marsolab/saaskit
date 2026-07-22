@@ -1,0 +1,6 @@
+interface:
+  display_name: "Go HTTP"
+  short_description: "Go HTTP services with chi and net/http"
+  default_prompt: "Use $go-http to add a production-ready Go HTTP endpoint with tests."
+policy:
+  allow_implicit_invocation: true
