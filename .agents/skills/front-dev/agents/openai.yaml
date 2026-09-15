@@ -1,6 +1,0 @@
-interface:
-  display_name: "Front Dev"
-  short_description: "Frontend web app development stack"
-  default_prompt: "Use $front-dev to build a responsive Astro and React page with Tailwind styling."
-policy:
-  allow_implicit_invocation: true
